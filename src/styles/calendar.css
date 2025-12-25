@@ -1,0 +1,147 @@
+/* react-big-calendar - Google Calendar-like styles */
+.calendar-wrapper .rbc-calendar {
+    font-family: var(--font-sans);
+}
+
+/* Hide default toolbar - we use custom */
+.calendar-wrapper .rbc-toolbar { display: none; }
+
+/* ===== HEADER ===== */
+.calendar-wrapper .rbc-header {
+    padding: 6px 4px;
+    font-weight: 500;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: transparent;
+    border-bottom: 1px solid var(--color-border-light);
+}
+.dark .calendar-wrapper .rbc-header {
+    border-bottom-color: var(--color-border-dark);
+    color: var(--color-text-dark);
+}
+
+/* ===== VIEWS CONTAINER ===== */
+.calendar-wrapper .rbc-month-view,
+.calendar-wrapper .rbc-time-view {
+    border: 1px solid var(--color-border-light);
+    border-radius: 8px;
+    overflow: hidden;
+    /* background: var(--color-surface-light); */
+}
+.dark .calendar-wrapper .rbc-month-view,
+.dark .calendar-wrapper .rbc-time-view {
+    border-color: var(--color-border-dark);
+    /* background: var(--color-surface-dark); */
+}
+/* Header rows border */
+.dark .rbc-header + .rbc-header {
+    border-left-color: var(--color-border-dark);
+}
+/* ===== MONTH VIEW ===== */
+.calendar-wrapper .rbc-month-row + .rbc-month-row {
+    border-top: 1px solid var(--color-border-light);
+}
+.dark .calendar-wrapper .rbc-month-row + .rbc-month-row {
+    border-top-color: var(--color-border-dark);
+}
+/* .calendar-wrapper .rbc-day-bg {
+    background: var(--color-surface-light);
+} */
+.calendar-wrapper .rbc-day-bg + .rbc-day-bg {
+    border-left: 1px solid var(--color-border-light);
+}
+/* .dark .calendar-wrapper .rbc-day-bg {
+    background: var(--color-surface-dark);
+} */
+.dark .calendar-wrapper .rbc-day-bg + .rbc-day-bg {
+    border-left-color: var(--color-border-dark);
+}
+.calendar-wrapper .rbc-off-range-bg {
+    background: var(--color-surface-muted-light);
+    color: red;
+}
+/* .dark .calendar-wrapper .rbc-off-range-bg { */
+    /* background: var(--color-surface-muted-dark); */
+/* } */
+.calendar-wrapper .rbc-date-cell {
+    padding: 4px 8px;
+    text-align: center;
+    font-size: 0.8rem;
+}
+/* .dark .calendar-wrapper .rbc-date-cell {
+    color: var(--color-text-dark);
+} */
+.rbc-date-cell.rbc-now button{
+    position: relative;
+    /* background: red !important; */
+}
+.rbc-date-cell.rbc-now button::before {
+    content: '';
+    display: block;
+    width: 25px;
+    height: 25px;
+    background-color: var(--color-primary);
+    opacity: 0.8;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    transform: translate(-50%, -50%);
+}
+.calendar-wrapper .rbc-allday-cell {
+    border-bottom: none !important;
+}
+
+/* ===== WEEK VIEW CUSTOM HEADER ===== */
+.week-header-custom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 6px 0;
+}
+
+.week-header-day {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+    color: var(--color-text-muted-light);
+}
+.dark .week-header-day {
+    color: var(--color-text-muted-dark);
+}
+
+.week-header-date {
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.week-header-date.today {
+    background-color: var(--color-primary);
+    color: #fff;
+}
+
+/* Hide all-day row in week view on desktop */
+/* .calendar-wrapper .rbc-time-view .rbc-allday-cell {
+    display: none;
+    height: 10px;
+}
+.calendar-wrapper .rbc-time-view .rbc-time-header-content .rbc-row:last-child {
+    display: none;
+} */
+
+/* Reset background for today cell: not working */
+/* .calendar-wrapper .rbc-today{
+    background: transparent !important;
+} */

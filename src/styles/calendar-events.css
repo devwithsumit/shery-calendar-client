@@ -1,0 +1,86 @@
+/* Calendar events & interactions - Part 3 */
+
+/* ===== TODAY HIGHLIGHT ===== */
+.calendar-wrapper .rbc-today {
+    background: rgba(39, 223, 179, 0.08) !important;
+}
+
+/* ===== EVENTS ===== */
+.calendar-wrapper .rbc-event {
+    background: var(--color-primary);
+    border: none;
+    border-radius: 4px;
+    padding: .5px 6px;
+    font-size: 0.75rem;
+    color: white;
+    margin-bottom: 1px;
+}
+.calendar-wrapper .rbc-event:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+.calendar-wrapper .rbc-event.rbc-selected {
+    background: var(--color-primary-hover);
+}
+.rbc-event .rbc-event-allday{
+    background-color: transparent !important;
+}
+
+/* Event label in week view */
+.calendar-wrapper .rbc-event-label {
+    font-size: 0.65rem;
+    opacity: 0.9;
+    color: black;
+}
+.calendar-wrapper .rbc-event-content {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: black;
+}
+
+/* ===== SELECTED SLOT ===== */
+.calendar-wrapper .rbc-slot-selection {
+    background: rgba(39, 223, 179, 0.25);
+    border: 1px solid var(--color-primary);
+    border-radius: 4px;
+}
+
+/* ===== CURRENT TIME INDICATOR ===== */
+.calendar-wrapper .rbc-current-time-indicator {
+    background-color: #ef4444;
+    height: 2px;
+}
+.calendar-wrapper .rbc-current-time-indicator::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: -4px;
+    width: 10px;
+    height: 10px;
+    background: #ef4444;
+    border-radius: 50%;
+}
+
+/* ===== MONTH ROW SEGMENT ===== */
+.calendar-wrapper .rbc-row-segment {
+    padding: 0 2px;
+}
+
+/* ===== SHOW MORE BUTTON ===== */
+.calendar-wrapper .rbc-show-more {
+    font-size: 0.7rem;
+    color: var(--color-primary);
+    font-weight: 500;
+    padding: 2px 4px;
+}
+.calendar-wrapper .rbc-show-more:hover {
+    text-decoration: underline;
+}
+
+/* ===== DAY SLOT ===== */
+.calendar-wrapper .rbc-day-slot .rbc-time-slot {
+    border-top: none;
+}
+.calendar-wrapper .rbc-day-slot .rbc-timeslot-group:first-child .rbc-time-slot {
+    border-top: none;
+}

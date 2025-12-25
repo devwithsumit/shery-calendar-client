@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Primary Brand Colors */
+  --color-primary: #27DFB3;
+  --color-primary-hover: #1fc9a0;
+  --color-primary-light: #d1fae5;
+  --color-primary-dark: #059669;
+  
+  /* Neutral Colors */
+  --color-bg-light: #ffffff;
+  --color-bg-dark: #0f0f0f;
+  --color-surface-light: #fafafa;
+  --color-surface-dark: #1c1c1c;
+  --color-border-light: #e4e4e7;
+  --color-border-dark: #333333;
+  --color-text-light: #09090b;
+  --color-text-dark: #fafafa;
+  --color-text-muted-light: #71717a;
+  --color-text-muted-dark: #a1a1aa;
+  
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Light Mode (default) */
+body {
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  background-color: var(--color-bg-light);
+  color: var(--color-text-light);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s, color 0.2s;
+}
+.bg-main {
+  background: 
+  radial-gradient(
+      circle at 20% 20%,
+      rgba(39, 223, 179, 0.15),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(39, 223, 179, 0.12),
+      transparent 45%
+    ),
+    #0b0f14;
+}
+.bg-popup{
+  background: var(--color-surface-light);
+  &:where(.dark, .dark *) {
+    background: var(--color-surface-dark);
+  }
+}
+.blur-surface-bg{
+  backdrop-filter: blur(16px);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.08),
+    rgba(255,255,255,0.03)
+  );
+  border: 1px solid rgba(255,255,255,0.12);
+  /* background: rgba(246, 246, 246, 0.65); */
+  /* background: color-mix(in srgb, var(--color-surface-light) 80%, transparent); */
+  
+  &:where(.dark, .dark *) {
+    background: rgba(30, 30, 30, 0.65);
+    /* background: color-mix(in srgb, var(--color-surface-dark) 80%, transparent); */
+  }
+}
+
+/* Dark Mode */
+.dark body {
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-dark);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+input:focus,
+button:focus,
+textarea:focus {
+  outline: none;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 3px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+/* Checkbox custom styles */
+/* .checkbox-custom {
+  border-color: var(--cb-color);
+  accent-color: var(--cb-color);
+}
+
+.checkbox-custom:checked {
+  background: var(--cb-color);
+} */
+
+ /* Light mode (default) */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0);
+}
+
+/* Dark mode */
+.dark input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+/* Dark mode */
+.dark input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
