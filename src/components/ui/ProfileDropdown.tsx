@@ -30,17 +30,19 @@ export const ProfileDropdown = () => {
         dispatch(logout());
         navigate('/login');
     };
+
     return (
         <div ref={ref} className="relative">
             <button onClick={() => setOpen(!open)} className="w-9 h-9 rounded-full overflow-hidden border-2 hover:border-primary-hover border-primary transition-colors">
                 {user?.picture ? (
-                    <img src={user.picture} alt={user.name} className="w-full h-full object-cover" />
+                    <img src={user?.picture} alt={"No Image"} className="w-full h-full object-cover" />
                 ) : (
                     <div className="w-full h-full bg-primary flex items-center justify-center">
                         <User className="w-5 h-5 text-white" />
                     </div>
-                )}
-            </button>
+                )
+                }
+            </button >
             {open && (
                 <div className="absolute z-50 right-0 mt-2 w-64 bg-popup border border-border-light dark:border-border-dark rounded-lg shadow-lg p-4">
                     <div className="flex items-center gap-3 pb-3 border-b border-border-light dark:border-border-dark">
@@ -61,6 +63,6 @@ export const ProfileDropdown = () => {
                     </button>
                 </div>
             )}
-        </div>
+        </div >
     );
 };

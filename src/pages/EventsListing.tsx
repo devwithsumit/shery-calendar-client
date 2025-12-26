@@ -61,10 +61,10 @@ export const EventsListing = () => {
                 </div>
 
                 {/* Future: Add filters */}
-                <button className="p-2 rounded-lg border border-border-light dark:border-border-dark
+                {/* <button className="p-2 rounded-lg border border-border-light dark:border-border-dark
                     hover:bg-surface-light/50 dark:hover:bg-surface-dark/50 transition-colors">
                     <Filter size={20} className="text-text-muted-light dark:text-text-muted-dark" />
-                </button>
+                </button> */}
             </div>
 
             {/* Events list */}

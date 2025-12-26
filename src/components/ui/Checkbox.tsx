@@ -1,5 +1,5 @@
 import type { InputHTMLAttributes } from 'react';
-import { forwardRef, useEffect } from 'react';
+import { forwardRef } from 'react';
 
 interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
     label?: string;

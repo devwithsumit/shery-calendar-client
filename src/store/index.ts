@@ -6,6 +6,7 @@ import { calendarApi } from '@/api/calendarApi';
 import { sheryEventApi } from '@/api/sheryEventApi';
 import { adminApi } from '@/api/adminApi';
 import { appEventApi } from '@/api/appEventApi';
+import { notificationApi } from '@/api/notificationApi';
 
 export const store = configureStore({
     reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
         [sheryEventApi.reducerPath]: sheryEventApi.reducer,
         [adminApi.reducerPath]: adminApi.reducer,
         [appEventApi.reducerPath]: appEventApi.reducer,
+        [notificationApi.reducerPath]: notificationApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware()
@@ -23,7 +25,8 @@ export const store = configureStore({
             .concat(calendarApi.middleware)
             .concat(sheryEventApi.middleware)
             .concat(adminApi.middleware)
-            .concat(appEventApi.middleware),
+            .concat(appEventApi.middleware)
+            .concat(notificationApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

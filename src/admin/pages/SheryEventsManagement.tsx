@@ -10,10 +10,13 @@ import { EventFormModal } from '../components/EventFormModal';
 import { EventFilters } from '../components/EventFilters';
 import { useGetCurrentUserQuery } from '@/api/authApi';
 import { SearchField, Button } from '@/components/ui';
+import toast from 'react-hot-toast';
+import { useGetNotificationsQuery } from '@/api/notificationApi';
 
 export const SheryEventsManagement = () => {
     const { data: user } = useGetCurrentUserQuery();
     const isSuperAdmin = user?.role === 'SUPER_ADMIN';
+    const { refetch: refetchNotifications } = useGetNotificationsQuery();
 
     const [filterParams, setFilterParams] = useState<{ startTime?: string; endTime?: string }>({});
     const { data: events, isLoading } = useGetSheryEventsQuery(filterParams);
@@ -39,8 +42,11 @@ export const SheryEventsManagement = () => {
         if (window.confirm('Are you sure you want to delete this event?')) {
             try {
                 await deleteEvent(eventId).unwrap();
+                refetchNotifications();
+                toast.success('Event deleted');
             } catch (error) {
                 console.error('Failed to delete event:', error);
+                toast.error('Failed to delete event');
             }
         }
     };
@@ -49,12 +55,16 @@ export const SheryEventsManagement = () => {
         try {
             if (editingEvent) {
                 await updateEvent({ id: editingEvent.id, data: eventData }).unwrap();
+                toast.success('Event updated');
             } else {
                 await createEvent(eventData).unwrap();
+                toast.success('Event created');
             }
+            refetchNotifications();
             setIsModalOpen(false);
         } catch (error) {
             console.error('Failed to save event:', error);
+            toast.error('Failed to save event');
         }
     };
 

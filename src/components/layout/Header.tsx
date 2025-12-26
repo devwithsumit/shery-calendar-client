@@ -1,4 +1,5 @@
 import { ThemeToggle, ProfileDropdown } from '@/components/ui';
+import { NotificationBell } from '@/components/notifications';
 import { MenuIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -19,6 +20,7 @@ export const Header = ({ onMenuClick }: { onMenuClick: () => void }) => {
                 </Link>
             </div>
             <div className="flex items-center gap-2">
+                <NotificationBell />
                 <ThemeToggle />
                 <ProfileDropdown />
             </div>

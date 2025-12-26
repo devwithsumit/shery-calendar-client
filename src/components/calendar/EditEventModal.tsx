@@ -23,6 +23,7 @@ export const EditEventModal = ({ isOpen, onClose, event, onUpdate, isUpdating }:
     });
 
     useEffect(() => {
+
         setFormData({
             summary: event.summary || '',
             description: event.description || '',
@@ -54,7 +55,9 @@ export const EditEventModal = ({ isOpen, onClose, event, onUpdate, isUpdating }:
                     <Input label="End" type="datetime-local" name="endDateTime" value={formData.endDateTime} onChange={handleChange} required />
                 </div>
                 <Input label="Location" name="location" value={formData.location} onChange={handleChange} />
-                <Checkbox variant='basic' label="Google Meet link" name="createMeetLink" checked={formData.createMeetLink} onChange={handleChange} />
+                {event?.source === 'GOOGLE' && (
+                    <Checkbox variant='basic' label="Google Meet link" name="createMeetLink" checked={formData.createMeetLink} onChange={handleChange} />
+                )}
                 <div className="flex justify-end gap-2 pt-3 border-t border-gray-200 dark:border-gray-700">
                     <Button type="button" variant="outline" size="sm" onClick={onClose}>Cancel</Button>
                     <Button type="submit" size="sm" isLoading={isUpdating}>Save</Button>

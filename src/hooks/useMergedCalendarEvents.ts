@@ -69,7 +69,7 @@ export const useMergedCalendarEvents = () => {
 
             allEvents.push(...convertedSheryEvents);
         }
-        console.log('Enabled App Calendar IDs:', enabledAppCalendarIds);
+
         // Convert App-native Events to CalendarEvent format
         if (appEvents && enabledAppCalendarIds && enabledAppCalendarIds.length > 0) {
             const convertedAppEvents = appEvents

@@ -22,7 +22,7 @@ export const LoginPage = () => {
                 <div className="absolute -bottom-[45%] left-1/6 w-96 h-96 bg-primary/25 rounded-full blur-3xl" />
             </div>
 
-            <div className="relative z-10 backdrop-blur-[5px] bg-surface-light/20 dark:bg-surface-dark/80 
+            <div className="relative z-10 backdrop-blur-[5px] bg-surface-light/20 dark:bg-surface-dark/20 
                 rounded-2xl shadow-lg p-8 w-full max-w-md border border-border-light dark:border-border-dark">
                 <div className="text-center mb-8">
                     <div className="mb-4">
@@ -46,7 +46,7 @@ export const LoginPage = () => {
                     <button
                         onClick={handleGoogleLogin}
                         className="w-full flex items-center justify-center gap-3 
-                            bg-white dark:bg-surface-dark border border-border-light dark:border-border-dark 
+                            bg-white/20 dark:bg-surface-dark/20 border border-border-light dark:border-border-dark 
                             text-text-light dark:text-text-dark px-6 py-3 rounded-lg font-semibold 
                             hover:bg-gray-50 dark:hover:bg-surface-dark/80 
                             hover:border-primary/50 dark:hover:border-primary/50 

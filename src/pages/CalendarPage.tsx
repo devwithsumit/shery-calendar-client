@@ -7,6 +7,7 @@ import { useMergedCalendarEvents } from '@/hooks/useMergedCalendarEvents';
 import { useCreateAppEventMutation, useUpdateAppEventMutation, useDeleteAppEventMutation, useGetAppCalendarsQuery } from '@/api/appEventApi';
 import { useCreateSheryEventMutation, useUpdateSheryEventMutation, useDeleteSheryEventMutation } from '@/api/sheryEventApi';
 import type { CalendarEvent, CalendarSlotInfo, CreateEventRequest, UpdateEventRequest } from '@/types/calendar';
+import toast from 'react-hot-toast';
 
 type CalendarViewType = View | 'year';
 type CalendarType = 'personal' | 'shery' | 'google';
@@ -21,17 +22,17 @@ export const CalendarPage = () => {
 
     // Google Calendar hooks
     const { createEvent: createGoogleEvent, updateEvent: updateGoogleEvent, deleteEvent: deleteGoogleEvent, isCreating: isCreatingGoogle, isUpdating: isUpdatingGoogle, isDeleting: isDeletingGoogle } = useCalendarEvents();
-    
+
     // App-native Calendar hooks
     const [createAppEvent, { isLoading: isCreatingApp }] = useCreateAppEventMutation();
     const [updateAppEvent, { isLoading: isUpdatingApp }] = useUpdateAppEventMutation();
     const [deleteAppEvent, { isLoading: isDeletingApp }] = useDeleteAppEventMutation();
-    
+
     // Shery Events hooks
     const [createSheryEvent, { isLoading: isCreatingShery }] = useCreateSheryEventMutation();
     const [updateSheryEvent, { isLoading: isUpdatingShery }] = useUpdateSheryEventMutation();
     const [deleteSheryEvent, { isLoading: isDeletingShery }] = useDeleteSheryEventMutation();
-    
+
     const { data: appCalendars = [] } = useGetAppCalendarsQuery();
     const { events, isLoading } = useMergedCalendarEvents();
 
@@ -75,6 +76,7 @@ export const CalendarPage = () => {
                     isAllDay: !data.startDateTime.includes('T'),
                     location: data.location,
                 });
+                toast.success('Shery event created!');
             } else {
                 // Personal calendar - use user's personal calendar ID
                 if (!personalCalendar) {
@@ -90,25 +92,27 @@ export const CalendarPage = () => {
                     location: data.location,
                     meetingLink: data.createMeetLink ? 'pending' : undefined,
                 }).unwrap();
+                toast.success('Personal event created!');
             }
             setCreateModalOpen(false);
             setSelectedSlot(null);
         } catch (error) {
             console.error('Failed to create event:', error);
             // TODO: Add toast notification
+            toast.error('Failed to create event');
         }
     };
 
     const handleUpdateEvent = async (data: UpdateEventRequest) => {
         if (!selectedEvent) return;
-        
+
         try {
             // Route to correct API based on event source
             switch (selectedEvent.source) {
                 case 'GOOGLE':
                     await updateGoogleEvent(data);
                     break;
-                    
+
                 case 'APP_PERSONAL': {
                     // Extract numeric ID from 'app-123' format
                     const numericId = parseInt(selectedEvent.id.replace('app-', ''));
@@ -124,9 +128,10 @@ export const CalendarPage = () => {
                             meetingLink: data.createMeetLink ? 'pending' : undefined,
                         }
                     }).unwrap();
+                    toast.success('Personal event updated!');
                     break;
                 }
-                    
+
                 case 'SHERY': {
                     // Extract numeric ID from 'shery-123' format
                     const numericId = parseInt(selectedEvent.id.replace('shery-', ''));
@@ -141,49 +146,51 @@ export const CalendarPage = () => {
                             location: data.location,
                         }
                     }).unwrap();
+                    toast.success('Shery event updated!');
                     break;
                 }
-                    
+
                 default:
                     throw new Error(`Unknown event source: ${selectedEvent.source}`);
             }
-            
+
             setEditModalOpen(false);
             setSelectedEvent(null);
         } catch (error) {
             console.error('Failed to update event:', error);
             // TODO: Add toast notification
+            toast.error('Failed to update event');
         }
     };
 
     const handleDeleteEvent = async () => {
         if (!selectedEvent || !confirm('Delete this event?')) return;
-        
+
         try {
             // Route to correct API based on event source
             switch (selectedEvent.source) {
                 case 'GOOGLE':
                     await deleteGoogleEvent(selectedEvent.id);
                     break;
-                    
+
                 case 'APP_PERSONAL': {
                     // Extract numeric ID from 'app-123' format
                     const numericId = parseInt(selectedEvent.id.replace('app-', ''));
                     await deleteAppEvent(numericId).unwrap();
                     break;
                 }
-                    
+
                 case 'SHERY': {
                     // Extract numeric ID from 'shery-123' format
                     const numericId = parseInt(selectedEvent.id.replace('shery-', ''));
                     await deleteSheryEvent(numericId).unwrap();
                     break;
                 }
-                    
+
                 default:
                     throw new Error(`Unknown event source: ${selectedEvent.source}`);
             }
-            
+
             setSelectedEvent(null);
         } catch (error) {
             console.error('Failed to delete event:', error);

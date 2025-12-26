@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useGetCalendarsQuery } from '@/api/calendarApi';
 import { useGetAppCalendarsQuery } from '@/api/appEventApi';
 import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
@@ -6,8 +6,10 @@ import { toggleCalendar, setEnabledCalendars, toggleSheryEvents, toggleAppCalend
 import type { Calendar, AppCalendar } from '@/types/calendar';
 import { Calendar as CalendarIcon, Building2, User } from 'lucide-react';
 import { Checkbox } from '@/components/ui';
+import { useGetCurrentUserQuery } from '@/api/authApi';
 
 export const CalendarList = () => {
+    const { data: currentUser } = useGetCurrentUserQuery();
     const { data: googleCalendars = [], isLoading: googleLoading } = useGetCalendarsQuery();
     const { data: appCalendars = [], isLoading: appLoading } = useGetAppCalendarsQuery();
     const { enabledCalendarIds, enabledAppCalendarIds = [], firstLoad, showSheryEvents } = useAppSelector(state => state.calendar);
@@ -47,6 +49,13 @@ export const CalendarList = () => {
 
     const isLoading = googleLoading || appLoading;
 
+    const filteredGoogleCalendars = useMemo(() => (
+        googleCalendars.filter(c =>
+            c.summary.toLocaleLowerCase().includes('holiday') ||
+            c.summary.toLocaleLowerCase() === currentUser?.username?.toLocaleLowerCase()
+        )
+    ), [googleCalendars, currentUser]);
+
     if (isLoading) {
         return (
             <div className="p-4">
@@ -84,7 +93,7 @@ export const CalendarList = () => {
                 <div className="space-y-1 mb-2">
                     {personalCalendars.map((calendar: AppCalendar) => {
                         const isEnabled = isAppCalendarEnabled(calendar.id);
-                        const bgColor = calendar.backgroundColor || '#10b981';
+                        const bgColor = calendar.backgroundColor || '#3b82f6';
 
                         return (
                             <label
@@ -98,7 +107,7 @@ export const CalendarList = () => {
                                     checked={isEnabled}
                                     onChange={() => handleAppCalendarToggle(calendar.id)}
                                 />
-                                <User size={14} className="text-green-600 dark:text-green-400" />
+                                <User size={14} className={`text-[#3b82f6] dark:text-[#3b82f6]`} />
                                 <span className={`text-sm truncate flex-1 ${isEnabled
                                     ? 'text-text-light dark:text-text-dark'
                                     : 'text-text-muted-light dark:text-text-muted-dark opacity-60'
@@ -175,7 +184,7 @@ export const CalendarList = () => {
                 </div>
 
                 <div className="space-y-1">
-                    {googleCalendars.map((calendar: Calendar) => {
+                    {filteredGoogleCalendars.map((calendar: Calendar) => {
                         const isEnabled = isGoogleCalendarEnabled(calendar.calendarId);
                         const bgColor = calendar.backgroundColor || '#25cfa6';
 
