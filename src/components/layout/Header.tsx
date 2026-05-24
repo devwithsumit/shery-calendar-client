@@ -15,7 +15,7 @@ export const Header = ({ onMenuClick }: { onMenuClick: () => void }) => {
                         <span className="text-white font-bold text-sm">SC</span>
                     </div>
                     <span className="font-semibold text-gray-800 dark:text-white hidden sm:block">
-                        Shery Calendar
+                        Sage Calendar
                     </span>
                 </Link>
             </div>

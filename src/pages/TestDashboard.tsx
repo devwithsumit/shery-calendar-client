@@ -36,7 +36,7 @@ const initialFormData: EventFormData = {
 
 const TestDashboard = () => {
     const { data } = useGetCurrentUserQuery();
-    const user: User | undefined = useMemo(() => data?.data, [data]);
+    const user: User | undefined = useMemo(() => data, [data]);
 
     const [events, setEvents] = useState<CalendarEvent[]>([]);
     const [loading, setLoading] = useState(false);

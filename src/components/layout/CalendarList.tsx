@@ -136,7 +136,7 @@ export const CalendarList = () => {
                             ? 'text-text-light dark:text-text-dark'
                             : 'text-text-muted-light dark:text-text-muted-dark opacity-60'
                             }`}>
-                            Shery Events
+                            Sage Events
                         </span>
                     </label>
                 </div>

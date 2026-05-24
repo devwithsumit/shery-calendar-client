@@ -35,7 +35,7 @@ export const LoginPage = () => {
                         </div>
                     </div>
                     <h1 className="text-3xl font-bold text-text-light dark:text-text-dark mb-2">
-                        Welcome to Shery Calendar
+                        Welcome to <br /> Sage Calendar
                     </h1>
                     <p className="text-text-muted-light dark:text-text-muted-dark">
                         Manage your events seamlessly

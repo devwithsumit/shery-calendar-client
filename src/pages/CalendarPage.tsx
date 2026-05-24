@@ -8,9 +8,10 @@ import { useCreateAppEventMutation, useUpdateAppEventMutation, useDeleteAppEvent
 import { useCreateSheryEventMutation, useUpdateSheryEventMutation, useDeleteSheryEventMutation } from '@/api/sheryEventApi';
 import type { CalendarEvent, CalendarSlotInfo, CreateEventRequest, UpdateEventRequest } from '@/types/calendar';
 import toast from 'react-hot-toast';
+import { useGetNotificationsQuery } from '@/api/notificationApi';
 
 type CalendarViewType = View | 'year';
-type CalendarType = 'personal' | 'shery' | 'google';
+type CalendarType = 'personal' | 'shery' | 'sage' | 'google';
 
 export const CalendarPage = () => {
     const [view, setView] = useState<CalendarViewType>('month');
@@ -32,6 +33,9 @@ export const CalendarPage = () => {
     const [createSheryEvent, { isLoading: isCreatingShery }] = useCreateSheryEventMutation();
     const [updateSheryEvent, { isLoading: isUpdatingShery }] = useUpdateSheryEventMutation();
     const [deleteSheryEvent, { isLoading: isDeletingShery }] = useDeleteSheryEventMutation();
+
+    // Notification refresh
+    const { refetch: refecthNotifications } = useGetNotificationsQuery();
 
     const { data: appCalendars = [] } = useGetAppCalendarsQuery();
     const { events, isLoading } = useMergedCalendarEvents();
@@ -67,7 +71,7 @@ export const CalendarPage = () => {
         try {
             if (calendarType === 'google') {
                 await createGoogleEvent(data);
-            } else if (calendarType === 'shery') {
+            } else if (calendarType === 'shery' || calendarType === 'sage') {
                 await createSheryEvent({
                     title: data.summary,
                     description: data.description,
@@ -76,7 +80,7 @@ export const CalendarPage = () => {
                     isAllDay: !data.startDateTime.includes('T'),
                     location: data.location,
                 });
-                toast.success('Shery event created!');
+                toast.success('Sage event created!');
             } else {
                 // Personal calendar - use user's personal calendar ID
                 if (!personalCalendar) {
@@ -94,6 +98,7 @@ export const CalendarPage = () => {
                 }).unwrap();
                 toast.success('Personal event created!');
             }
+            refecthNotifications();
             setCreateModalOpen(false);
             setSelectedSlot(null);
         } catch (error) {
@@ -146,14 +151,14 @@ export const CalendarPage = () => {
                             location: data.location,
                         }
                     }).unwrap();
-                    toast.success('Shery event updated!');
+                    toast.success('Sage event updated!');
                     break;
                 }
 
                 default:
                     throw new Error(`Unknown event source: ${selectedEvent.source}`);
             }
-
+            refecthNotifications();
             setEditModalOpen(false);
             setSelectedEvent(null);
         } catch (error) {

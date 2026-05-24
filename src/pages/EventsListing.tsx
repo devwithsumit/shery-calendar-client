@@ -4,7 +4,7 @@ import { useMergedCalendarEvents } from '@/hooks/useMergedCalendarEvents';
 import { EventGroup } from '@/components/events';
 import { ViewEventModal } from '@/components/calendar';
 import type { CalendarEvent } from '@/types/calendar';
-import { Calendar, Filter } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 
 export const EventsListing = () => {
     const { events, isLoading } = useMergedCalendarEvents();

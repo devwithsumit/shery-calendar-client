@@ -6,7 +6,7 @@ import { addHours, isFuture, isToday } from 'date-fns';
 import { useGetCurrentUserQuery } from '@/api/authApi';
 import { Calendar, Building2, CalendarDays } from 'lucide-react';
 
-type CalendarType = 'personal' | 'shery' | 'google';
+type CalendarType = 'personal' | 'sage' | 'google';
 
 interface EventFormModalProps {
     isOpen: boolean;
@@ -50,7 +50,7 @@ export const EventFormModal = ({ isOpen, onClose, onSubmit, isLoading, initialSt
     const getCalendarLabel = () => {
         switch (selectedCalendar) {
             case 'personal': return 'This event will be added to your Personal calendar';
-            case 'shery': return 'This event will be added to Shery Events';
+            case 'sage': return 'This event will be added to Sage Events';
             case 'google': return 'This event will be added to Google Calendar';
         }
     };
@@ -77,14 +77,14 @@ export const EventFormModal = ({ isOpen, onClose, onSubmit, isLoading, initialSt
                         {canUseSheryCalendar && (
                             <button
                                 type="button"
-                                onClick={() => setSelectedCalendar('shery')}
-                                className={`flex text-sm items-center gap-2 px-4 py-1.5 rounded-lg border transition-all ${selectedCalendar === 'shery'
+                                onClick={() => setSelectedCalendar('sage')}
+                                className={`flex text-sm items-center gap-2 px-4 py-1.5 rounded-lg border transition-all ${selectedCalendar === 'sage'
                                     ? 'bg-surface-light/0 text-white border-primary'
                                     : 'bg-surface-light/50 dark:bg-surface-dark/50 border-border-light dark:border-border-dark text-text-light dark:text-text-dark hover:border-primary'
                                     }`}
                             >
                                 <Building2 size={16} />
-                                Shery Events
+                                Sage Events
                             </button>
                         )}
 
